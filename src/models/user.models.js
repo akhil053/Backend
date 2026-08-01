@@ -54,11 +54,11 @@ const userSchema = new Schema(
 )
 
 
-userSchema.pre("save",async function (next) {
-    if (!this.isModified("password")) return next();   // agar if statement na likhu to jab bhi user kuch bhi save karega tab har baar password chnage hoga to ilsiye if statemnet use hua hai
+userSchema.pre("save",async function () {
+    if (!this.isModified("password")) return;   // agar if statement na likhu to jab bhi user kuch bhi save karega tab har baar password chnage hoga to ilsiye if statemnet use hua hai
 
     this.password = await bcrypt.hash(this.password , 10)
-    next()
+    
 }) 
           
 userSchema.methods.isPasswordCorrect = async function (password) {
